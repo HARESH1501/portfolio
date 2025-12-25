@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 # Haresh K N - Portfolio Website
 
 A modern, production-ready portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and responsive design optimized for recruiters and hiring managers.
@@ -51,18 +52,20 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd haresh-portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -70,6 +73,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -84,6 +88,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Vercel (Recommended)
 
 1. **Push to GitHub**
+
    ```bash
    git add .
    git commit -m "Initial commit"
@@ -98,6 +103,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Netlify
 
 1. **Build the project**
+
    ```bash
    npm run build
    ```
@@ -110,11 +116,13 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Manual Deployment
 
 1. **Build for production**
+
    ```bash
    npm run build
    ```
 
 2. **Export static files**
+
    ```bash
    npm run export
    ```
@@ -126,6 +134,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Personal Information
 
 1. **Update personal details** in:
+
    - `components/sections/Hero.tsx` - Name, title, description
    - `components/sections/About.tsx` - Bio, education, contact info
    - `app/layout.tsx` - Meta tags and SEO information
@@ -137,16 +146,17 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Projects
 
 1. **Update project data** in `components/sections/Projects.tsx`:
+
    ```typescript
    const projects = [
      {
        id: 1,
-       title: 'Your Project Title',
-       subtitle: 'Project Subtitle',
-       description: 'Brief description...',
+       title: "Your Project Title",
+       subtitle: "Project Subtitle",
+       description: "Brief description...",
        // ... other fields
-     }
-   ]
+     },
+   ];
    ```
 
 2. **Add project details** for each project in the `details` object
@@ -191,7 +201,7 @@ NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
 The website is built with a mobile-first approach:
 
 - **Mobile**: 320px - 768px
-- **Tablet**: 768px - 1024px  
+- **Tablet**: 768px - 1024px
 - **Desktop**: 1024px+
 
 ## ⚡ Performance
@@ -232,8 +242,8 @@ If you have any questions or need help customizing the portfolio:
 
 ---
 
-**Built with ❤️ by Haresh K N**
-=======
+# **Built with ❤️ by Haresh K N**
+
 # Haresh K N - Portfolio Website
 
 A modern, production-ready portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and responsive design optimized for recruiters and hiring managers.
@@ -286,18 +296,20 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd haresh-portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -305,6 +317,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -319,6 +332,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Vercel (Recommended)
 
 1. **Push to GitHub**
+
    ```bash
    git add .
    git commit -m "Initial commit"
@@ -333,6 +347,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Netlify
 
 1. **Build the project**
+
    ```bash
    npm run build
    ```
@@ -345,11 +360,13 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Manual Deployment
 
 1. **Build for production**
+
    ```bash
    npm run build
    ```
 
 2. **Export static files**
+
    ```bash
    npm run export
    ```
@@ -361,6 +378,7 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Personal Information
 
 1. **Update personal details** in:
+
    - `components/sections/Hero.tsx` - Name, title, description
    - `components/sections/About.tsx` - Bio, education, contact info
    - `app/layout.tsx` - Meta tags and SEO information
@@ -372,16 +390,17 @@ A modern, production-ready portfolio website built with Next.js, TypeScript, and
 ### Projects
 
 1. **Update project data** in `components/sections/Projects.tsx`:
+
    ```typescript
    const projects = [
      {
        id: 1,
-       title: 'Your Project Title',
-       subtitle: 'Project Subtitle',
-       description: 'Brief description...',
+       title: "Your Project Title",
+       subtitle: "Project Subtitle",
+       description: "Brief description...",
        // ... other fields
-     }
-   ]
+     },
+   ];
    ```
 
 2. **Add project details** for each project in the `details` object
@@ -426,7 +445,7 @@ NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
 The website is built with a mobile-first approach:
 
 - **Mobile**: 320px - 768px
-- **Tablet**: 768px - 1024px  
+- **Tablet**: 768px - 1024px
 - **Desktop**: 1024px+
 
 ## ⚡ Performance
@@ -468,4 +487,5 @@ If you have any questions or need help customizing the portfolio:
 ---
 
 **Built with ❤️ by Haresh K N**
->>>>>>> bd1a6b2cbd3150501345a0d8340b5b57a697c4a2
+
+> > > > > > > bd1a6b2cbd3150501345a0d8340b5b57a697c4a2
