@@ -44,7 +44,7 @@ const Navigation = () => {
             className="text-xl font-bold text-primary-600"
           >
             {/* Logo or brand name here, e.g.: */}
-            Haresh K N
+          
           </motion.div>
 
           {/* Desktop Navigation */}
