@@ -32,7 +32,7 @@ const Skills = () => {
     {
       title: 'Tools & Platforms',
       icon: Wrench,
-      skills: ['Streamlit', 'Git', 'GitHub', 'MySQL', 'HTML', 'CSS', 'JavaScript', 'Node.js'],
+      skills: ['Streamlit', 'Git', 'GitHub', 'MySQL'],
       color: 'bg-orange-500'
     },
     {
@@ -50,7 +50,7 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" className="section-padding">
+    <section id="skills" className="section-padding bg-gray-950">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -71,28 +71,58 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <motion.div
                 key={category.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white dark:bg-dark-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                initial={{ opacity: 0, y: 50, rotateY: -90 }}
+                animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
+                transition={{ 
+                  delay: index * 0.15, 
+                  duration: 0.8,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 5,
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.3)"
+                }}
+                className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform magnetic glow-effect group"
               >
-                <div className="flex items-center mb-4">
-                  <div className={`p-3 ${category.color} rounded-lg mr-4`}>
+                <motion.div 
+                  className="flex items-center mb-4"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.div 
+                    className={`p-3 ${category.color} rounded-lg mr-4`}
+                    whileHover={{ 
+                      rotate: 360,
+                      scale: 1.1
+                    }}
+                    transition={{ duration: 0.6 }}
+                  >
                     <category.icon className="text-white" size={24} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  </motion.div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-400 transition-colors">
                     {category.title}
                   </h3>
-                </div>
+                </motion.div>
                 
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill, skillIndex) => (
                     <motion.span
                       key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={inView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ delay: (index * 0.1) + (skillIndex * 0.05), duration: 0.3 }}
-                      className="px-3 py-1 bg-gray-100 dark:bg-dark-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 transition-colors cursor-default"
+                      initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                      animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+                      transition={{ 
+                        delay: (index * 0.15) + (skillIndex * 0.08), 
+                        duration: 0.5,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                      whileHover={{ 
+                        scale: 1.1,
+                        backgroundColor: "rgba(59, 130, 246, 0.2)",
+                        color: "#60a5fa"
+                      }}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium transition-all duration-300 cursor-default hover:shadow-lg"
                     >
                       {skill}
                     </motion.span>
@@ -122,24 +152,53 @@ const Skills = () => {
                 { skill: 'SQL & Databases', level: 80 },
                 { skill: 'Problem Solving', level: 92 }
               ].map((item, index) => (
-                <div key={item.skill} className="space-y-2">
+                <motion.div 
+                  key={item.skill} 
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 1 + (index * 0.1), duration: 0.6 }}
+                >
                   <div className="flex justify-between">
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    <motion.span 
+                      className="text-gray-700 dark:text-gray-300 font-medium"
+                      whileHover={{ scale: 1.05, color: "#60a5fa" }}
+                    >
                       {item.skill}
-                    </span>
-                    <span className="text-primary-600 font-semibold">
+                    </motion.span>
+                    <motion.span 
+                      className="text-primary-600 font-semibold"
+                      initial={{ opacity: 0 }}
+                      animate={inView ? { opacity: 1 } : {}}
+                      transition={{ delay: 1.5 + (index * 0.1), duration: 0.5 }}
+                    >
                       {item.level}%
-                    </span>
+                    </motion.span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
                     <motion.div
-                      initial={{ width: 0 }}
-                      animate={inView ? { width: `${item.level}%` } : {}}
-                      transition={{ delay: 1 + (index * 0.1), duration: 1 }}
-                      className="bg-gradient-to-r from-primary-500 to-purple-500 h-2 rounded-full"
-                    />
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={inView ? { width: `${item.level}%`, opacity: 1 } : {}}
+                      transition={{ 
+                        delay: 1.2 + (index * 0.1), 
+                        duration: 1.5,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }}
+                      className="bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500 h-3 rounded-full relative overflow-hidden"
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        animate={{ x: ['-100%', '100%'] }}
+                        transition={{ 
+                          repeat: Infinity, 
+                          duration: 2, 
+                          delay: 2 + (index * 0.1),
+                          ease: "linear"
+                        }}
+                      />
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>

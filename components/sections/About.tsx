@@ -11,7 +11,7 @@ const About = () => {
   })
 
   return (
-    <section id="about" className="section-padding bg-gray-50 dark:bg-dark-800">
+    <section id="about" className="section-padding bg-gray-900">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -62,7 +62,7 @@ const About = () => {
               className="space-y-6"
             >
               {/* Education Card */}
-              <div className="bg-white dark:bg-dark-900 p-6 rounded-xl shadow-lg">
+              <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
                 <div className="flex items-start space-x-4">
                   <div className="p-3 bg-primary-100 dark:bg-primary-900 rounded-lg">
                     <GraduationCap className="text-primary-600" size={24} />
@@ -93,7 +93,7 @@ const About = () => {
               </div>
 
               {/* Contact Info */}
-              <div className="bg-white dark:bg-dark-900 p-6 rounded-xl shadow-lg">
+              <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                   Contact Information
                 </h3>

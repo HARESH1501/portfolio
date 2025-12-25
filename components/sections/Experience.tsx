@@ -38,7 +38,7 @@ const Experience = () => {
   ]
 
   return (
-    <section id="experience" className="section-padding">
+    <section id="experience" className="section-padding bg-gray-950">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -61,7 +61,7 @@ const Experience = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="bg-white dark:bg-dark-900 rounded-2xl shadow-xl p-8 mb-8 relative overflow-hidden"
+              className="bg-gray-800 rounded-2xl shadow-xl p-8 mb-8 relative overflow-hidden"
             >
               {/* Background Pattern */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-500/10 to-purple-500/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -170,7 +170,7 @@ const Experience = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.6 + (index * 0.1), duration: 0.6 }}
-                    className="bg-white dark:bg-dark-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     <div className="flex items-start space-x-4">
                       <div className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg">

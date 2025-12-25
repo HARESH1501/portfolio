@@ -105,7 +105,7 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="section-padding bg-gray-50 dark:bg-dark-800">
+    <section id="contact" className="section-padding bg-gray-900">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -144,7 +144,7 @@ const Contact = () => {
                         transition={{ delay: 0.4 + (index * 0.1), duration: 0.6 }}
                         className="flex items-start space-x-4"
                       >
-                        <div className={`p-3 bg-white dark:bg-dark-900 rounded-lg shadow-md ${info.color}`}>
+                        <div className={`p-3 bg-gray-800 rounded-lg shadow-md ${info.color}`}>
                           <info.icon size={24} />
                         </div>
                         <div>
@@ -187,7 +187,7 @@ const Contact = () => {
                         transition={{ delay: 0.8 + (index * 0.1), duration: 0.6 }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`p-4 bg-white dark:bg-dark-900 rounded-lg shadow-md text-gray-700 dark:text-gray-300 transition-all duration-300 ${social.color} hover:text-white`}
+                        className={`p-4 bg-gray-800 rounded-lg shadow-md text-gray-700 dark:text-gray-300 transition-all duration-300 ${social.color} hover:text-white`}
                       >
                         <social.icon size={24} />
                       </motion.a>
@@ -224,7 +224,7 @@ const Contact = () => {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <div className="bg-white dark:bg-dark-900 p-8 rounded-2xl shadow-lg">
+              <div className="bg-gray-800 p-8 rounded-2xl shadow-lg">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Send a Message
                 </h3>

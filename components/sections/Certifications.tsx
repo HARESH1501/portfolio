@@ -80,7 +80,7 @@ const Certifications = () => {
   ]
 
   return (
-    <section id="certifications" className="section-padding bg-gray-50 dark:bg-dark-800">
+    <section id="certifications" className="section-padding bg-gray-900">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -101,35 +101,95 @@ const Certifications = () => {
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white dark:bg-dark-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden"
+                initial={{ 
+                  opacity: 0, 
+                  y: 50,
+                  rotateY: -30,
+                  scale: 0.8
+                }}
+                animate={inView ? { 
+                  opacity: 1, 
+                  y: 0,
+                  rotateY: 0,
+                  scale: 1
+                } : {}}
+                transition={{ 
+                  delay: index * 0.15, 
+                  duration: 0.8,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover={{ 
+                  y: -8,
+                  rotateY: 3,
+                  scale: 1.02,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                }}
+                className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform overflow-hidden group magnetic"
+                style={{ perspective: '1000px' }}
               >
                 {/* Header with gradient */}
-                <div className={`h-2 bg-gradient-to-r ${cert.color}`}></div>
+                <motion.div 
+                  className={`h-2 bg-gradient-to-r ${cert.color}`}
+                  initial={{ scaleX: 0 }}
+                  animate={inView ? { scaleX: 1 } : {}}
+                  transition={{ delay: index * 0.15 + 0.3, duration: 0.6 }}
+                />
                 
-                <div className="p-6">
+                <div className="p-6 relative overflow-hidden">
+                  {/* Animated Background */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={false}
+                  />
+                  
                   {/* Icon and Title */}
-                  <div className="flex items-start justify-between mb-4">
+                  <motion.div 
+                    className="flex items-start justify-between mb-4 relative z-10"
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="flex items-center space-x-3">
-                      <div className={`p-3 bg-gradient-to-r ${cert.color} rounded-lg`}>
+                      <motion.div 
+                        className={`p-3 bg-gradient-to-r ${cert.color} rounded-lg`}
+                        whileHover={{ 
+                          rotate: [0, -15, 15, 0],
+                          scale: 1.1
+                        }}
+                        transition={{ duration: 0.6 }}
+                      >
                         <cert.icon className="text-white" size={24} />
-                      </div>
+                      </motion.div>
                       {cert.verified && (
-                        <div className="p-1 bg-green-100 dark:bg-green-900 rounded-full">
+                        <motion.div 
+                          className="p-1 bg-green-100 dark:bg-green-900 rounded-full"
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 360]
+                          }}
+                          transition={{ 
+                            repeat: Infinity, 
+                            duration: 3,
+                            delay: index * 0.5
+                          }}
+                        >
                           <Award className="text-green-600 dark:text-green-400" size={16} />
-                        </div>
+                        </motion.div>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Title and Provider */}
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                  <motion.h3 
+                    className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-primary-400 transition-colors relative z-10"
+                    whileHover={{ scale: 1.02 }}
+                  >
                     {cert.title}
-                  </h3>
+                  </motion.h3>
                   
-                  <div className="flex items-center justify-between mb-3">
+                  <motion.div 
+                    className="flex items-center justify-between mb-3 relative z-10"
+                    whileHover={{ y: -1 }}
+                  >
                     <span className="text-primary-600 font-semibold">
                       {cert.provider}
                     </span>
@@ -137,22 +197,39 @@ const Certifications = () => {
                       <Calendar size={14} />
                       <span>{cert.date}</span>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Description */}
-                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-4 leading-relaxed">
+                  <motion.p 
+                    className="text-gray-700 dark:text-gray-300 text-sm mb-4 leading-relaxed relative z-10"
+                    initial={{ opacity: 0.8 }}
+                    whileHover={{ opacity: 1 }}
+                  >
                     {cert.description}
-                  </p>
+                  </motion.p>
 
-                  {/* Score and Duration (if available) */}
+                  {/* Score and Duration */}
                   {(cert.score || cert.duration) && (
-                    <div className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-lg">
+                    <motion.div 
+                      className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-lg relative z-10"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <div className="flex items-center justify-between text-sm">
                         {cert.score && (
-                          <div className="flex items-center space-x-2">
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                          >
                             <span className="text-gray-600 dark:text-gray-400">Score:</span>
-                            <span className="font-semibold text-primary-600">{cert.score}</span>
-                          </div>
+                            <motion.span 
+                              className="font-semibold text-primary-600"
+                              animate={{ scale: [1, 1.1, 1] }}
+                              transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }}
+                            >
+                              {cert.score}
+                            </motion.span>
+                          </motion.div>
                         )}
                         {cert.duration && (
                           <div className="flex items-center space-x-2">
@@ -166,37 +243,63 @@ const Certifications = () => {
                           <span className="font-medium">{cert.institution}</span>
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   )}
 
                   {/* Skills */}
-                  <div className="mb-4">
+                  <div className="mb-4 relative z-10">
                     <div className="flex flex-wrap gap-2">
-                      {cert.skills.map((skill) => (
-                        <span
+                      {cert.skills.map((skill, skillIndex) => (
+                        <motion.span
                           key={skill}
-                          className="px-2 py-1 bg-gray-100 dark:bg-dark-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium"
+                          initial={{ opacity: 0, scale: 0, rotate: -90 }}
+                          animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+                          transition={{ 
+                            delay: index * 0.15 + 0.5 + (skillIndex * 0.1),
+                            duration: 0.4,
+                            type: "spring"
+                          }}
+                          whileHover={{ 
+                            scale: 1.1,
+                            backgroundColor: "rgba(59, 130, 246, 0.2)",
+                            color: "#60a5fa"
+                          }}
+                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs font-medium transition-all duration-300"
                         >
                           {skill}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
                   </div>
 
                   {/* Action Button */}
-                  <div className="flex items-center justify-between">
+                  <motion.div 
+                    className="flex items-center justify-between relative z-10"
+                    whileHover={{ y: -2 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
                       <BookOpen size={12} className="mr-1" />
                       Certified
                     </span>
-                    <button 
+                    <motion.button 
                       onClick={() => handleViewCertificate(cert)}
-                      className="flex items-center space-x-1 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors hover:scale-105 transform"
+                      className="flex items-center space-x-1 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors"
+                      whileHover={{ 
+                        scale: 1.05,
+                        x: 3
+                      }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <span>View Certificate</span>
-                      <ExternalLink size={14} />
-                    </button>
-                  </div>
+                      <motion.div
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }}
+                      >
+                        <ExternalLink size={14} />
+                      </motion.div>
+                    </motion.button>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
@@ -207,7 +310,7 @@ const Certifications = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-16 bg-white dark:bg-dark-900 rounded-2xl p-8 shadow-lg"
+            className="mt-16 bg-gray-800 rounded-2xl p-8 shadow-lg"
           >
             <h3 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
               Learning Journey

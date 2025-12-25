@@ -8,7 +8,29 @@
   }
   
   body {
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-300 bg-gray-950 text-white;
+  }
+  
+  /* Default to dark theme */
+  :root {
+    color-scheme: dark;
+  }
+  
+  /* Scrollbar styling for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-900;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-600;
   }
 }
 
@@ -18,15 +40,15 @@
   }
   
   .btn-secondary {
-    @apply border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105;
+    @apply border-2 border-primary-600 text-primary-400 hover:bg-primary-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105;
   }
   
   .card-hover {
-    @apply transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer;
+    @apply transition-all duration-500 transform hover:scale-105 hover:shadow-xl cursor-pointer bg-gray-900 border border-gray-700 hover:border-primary-500/50;
   }
   
   .gradient-bg {
-    @apply bg-gradient-to-br from-primary-600 via-purple-600 to-pink-600 animate-gradient;
+    background: linear-gradient(135deg, #030712 0%, #111827 50%, #1f2937 100%);
   }
   
   .section-padding {
@@ -35,5 +57,119 @@
   
   .container-max {
     @apply max-w-7xl mx-auto;
+  }
+  
+  /* Advanced Animation Classes */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-8;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-on-scroll.animate {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .stagger-animation {
+    animation-delay: calc(var(--stagger) * 0.1s);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 via-purple-500 to-pink-500 bg-clip-text text-transparent;
+  }
+  
+  .text-shimmer {
+    background: linear-gradient(90deg, #64748b 0%, #e2e8f0 50%, #64748b 100%);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 2s linear infinite;
+  }
+  
+  .glow-effect {
+    @apply shadow-lg shadow-primary-500/20 transition-all duration-300;
+  }
+  
+  .glow-effect:hover {
+    @apply shadow-xl shadow-primary-500/40;
+  }
+  
+  .morph-blob {
+    animation: morph 8s ease-in-out infinite;
+  }
+  
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid;
+    white-space: nowrap;
+    animation: typewriter 4s steps(40) 1s forwards, blink 1s infinite;
+  }
+  
+  /* Particle Animation */
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(59, 130, 246, 0.6);
+    border-radius: 50%;
+    animation: particle 20s linear infinite;
+  }
+  
+  .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+  .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+  .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+  .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
+  .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
+  .particle:nth-child(6) { left: 60%; animation-delay: 10s; }
+  .particle:nth-child(7) { left: 70%; animation-delay: 12s; }
+  .particle:nth-child(8) { left: 80%; animation-delay: 14s; }
+  .particle:nth-child(9) { left: 90%; animation-delay: 16s; }
+  
+  /* Magnetic Effect */
+  .magnetic {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .magnetic:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Reveal Animation */
+  .reveal-text {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .reveal-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    animation: reveal 2s ease-in-out;
+  }
+  
+  @keyframes reveal {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
 }

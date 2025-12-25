@@ -43,6 +43,8 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             className="text-xl font-bold text-primary-600"
           >
+            {/* Logo or brand name here, e.g.: */}
+            Haresh K N
           </motion.div>
 
           {/* Desktop Navigation */}

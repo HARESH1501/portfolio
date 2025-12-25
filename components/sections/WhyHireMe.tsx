@@ -69,7 +69,7 @@ const WhyHireMe = () => {
   ]
 
   return (
-    <section id="why-hire-me" className="section-padding">
+    <section id="why-hire-me" className="section-padding bg-gray-950">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -95,7 +95,7 @@ const WhyHireMe = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white dark:bg-dark-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <div className="flex items-start space-x-4 mb-6">
                   <div className={`p-4 bg-gradient-to-r ${prop.color} rounded-xl`}>
@@ -168,7 +168,7 @@ const WhyHireMe = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 1, duration: 0.8 }}
-            className="bg-white dark:bg-dark-900 rounded-2xl p-8 shadow-lg"
+            className="bg-gray-800 rounded-2xl p-8 shadow-lg"
           >
             <h3 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
               What I Bring to Your Team

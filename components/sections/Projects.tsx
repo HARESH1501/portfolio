@@ -213,7 +213,7 @@ const Projects = () => {
   ]
 
   return (
-    <section id="projects" className="section-padding bg-gray-50 dark:bg-dark-800">
+    <section id="projects" className="section-padding bg-gray-900">
       <div className="container-max">
         <motion.div
           ref={ref}
@@ -234,58 +234,140 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
+                initial={{ 
+                  opacity: 0, 
+                  y: 60,
+                  rotateX: -15,
+                  scale: 0.9
+                }}
+                animate={inView ? { 
+                  opacity: 1, 
+                  y: 0,
+                  rotateX: 0,
+                  scale: 1
+                } : {}}
+                transition={{ 
+                  delay: index * 0.2, 
+                  duration: 0.8,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover={{ 
+                  y: -10,
+                  rotateY: 5,
+                  scale: 1.02,
+                  boxShadow: "0 25px 50px rgba(59, 130, 246, 0.2)"
+                }}
                 onClick={() => setSelectedProject(project)}
-                className="card-hover bg-white dark:bg-dark-900 rounded-xl shadow-lg overflow-hidden"
+                className="card-hover bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer"
+                style={{ perspective: '1000px' }}
               >
-                <div className={`h-2 bg-gradient-to-r ${project.gradient}`}></div>
+                <motion.div 
+                  className={`h-2 bg-gradient-to-r ${project.gradient}`}
+                  initial={{ scaleX: 0 }}
+                  animate={inView ? { scaleX: 1 } : {}}
+                  transition={{ delay: index * 0.2 + 0.3, duration: 0.6 }}
+                />
                 
-                <div className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className={`p-3 bg-gradient-to-r ${project.gradient} rounded-lg mr-4`}>
+                <div className="p-6 relative overflow-hidden">
+                  {/* Hover Effect Background */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={false}
+                  />
+                  
+                  <motion.div 
+                    className="flex items-center mb-4 relative z-10"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div 
+                      className={`p-3 bg-gradient-to-r ${project.gradient} rounded-lg mr-4`}
+                      whileHover={{ 
+                        rotate: [0, -10, 10, 0],
+                        scale: 1.1
+                      }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <project.icon className="text-white" size={24} />
-                    </div>
+                    </motion.div>
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <motion.h3 
+                        className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-400 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                      >
                         {project.title}
-                      </h3>
+                      </motion.h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {project.subtitle}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                   
-                  <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
+                  <motion.p 
+                    className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3 relative z-10"
+                    initial={{ opacity: 0.8 }}
+                    whileHover={{ opacity: 1 }}
+                  >
                     {project.description}
-                  </p>
+                  </motion.p>
                   
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <span
+                  <div className="flex flex-wrap gap-2 mb-4 relative z-10">
+                    {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                      <motion.span
                         key={tag}
-                        className="px-2 py-1 bg-gray-100 dark:bg-dark-800 text-gray-600 dark:text-gray-400 rounded text-xs"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ 
+                          delay: index * 0.2 + 0.5 + (tagIndex * 0.1),
+                          duration: 0.4,
+                          type: "spring"
+                        }}
+                        whileHover={{ 
+                          scale: 1.1,
+                          backgroundColor: "rgba(59, 130, 246, 0.2)"
+                        }}
+                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs transition-all duration-300"
                       >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 dark:bg-dark-800 text-gray-600 dark:text-gray-400 rounded text-xs">
+                      <motion.span 
+                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
+                        whileHover={{ scale: 1.1 }}
+                      >
                         +{project.tags.length - 3} more
-                      </span>
+                      </motion.span>
                     )}
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <span className="text-primary-600 font-medium text-sm">
+                  <motion.div 
+                    className="flex items-center justify-between relative z-10"
+                    whileHover={{ y: -2 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.span 
+                      className="text-primary-600 font-medium text-sm group-hover:text-primary-400 transition-colors"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, delay: index * 0.5 }}
+                    >
                       Click to view details →
-                    </span>
+                    </motion.span>
                     <div className="flex space-x-2">
-                      <Github size={16} className="text-gray-400" />
-                      <ExternalLink size={16} className="text-gray-400" />
+                      <motion.div
+                        whileHover={{ rotate: 360, scale: 1.2 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Github size={16} className="text-gray-400 group-hover:text-primary-400 transition-colors" />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ rotate: -360, scale: 1.2 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <ExternalLink size={16} className="text-gray-400 group-hover:text-primary-400 transition-colors" />
+                      </motion.div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
