@@ -108,27 +108,8 @@ const Hero = () => {
               <span className="text-purple-400"> Transforming data into decisions.</span>
             </p>
 
-            {/* Stats Display */}
-            <div className="grid grid-cols-3 gap-4 max-w-xl">
-              {[
-                { icon: Brain, label: 'AI Models', value: '50+' },
-                { icon: Cpu, label: 'Projects', value: '30+' },
-                { icon: Zap, label: 'Accuracy', value: '95%' }
-              ].map((stat, index) => (
-                <div 
-                  key={index}
-                  className="hologram-card p-4 text-center holo-shimmer"
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <stat.icon className="w-8 h-8 mx-auto mb-2 text-cyan-400" />
-                  <div className="text-2xl font-bold neon-text-cyan">{stat.value}</div>
-                  <div className="text-xs text-gray-400 font-mono uppercase">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-8">
               <a
                 href="#projects"
                 className="btn-ai-primary group flex items-center justify-center gap-3"
