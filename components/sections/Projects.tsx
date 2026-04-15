@@ -1,380 +1,393 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { ExternalLink, Github, FileText, Mic, Hand, Gamepad2, Home } from 'lucide-react'
-import { useState } from 'react'
+import { ExternalLink, Github, FileText, Mic, Hand, Gamepad2, Home, Shield, BarChart, Cpu, Terminal, Zap } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import ProjectModal from '@/components/ProjectModal'
 
 const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
   const [selectedProject, setSelectedProject] = useState<any>(null)
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const element = document.getElementById('projects')
+    if (element) observer.observe(element)
+
+    return () => {
+      if (element) observer.unobserve(element)
+    }
+  }, [])
 
   const projects = [
     {
       id: 1,
-      title: 'Intelligent Document QA Assistant',
-      subtitle: 'RAG + Voice Input System',
-      description: 'AI assistant using PDF text extraction, FAISS-based RAG, Groq LLaMA-3.3-70B, and Whisper STT with Streamlit UI.',
-      icon: FileText,
-      tags: ['Python', 'RAG', 'LLaMA', 'Whisper', 'FAISS', 'Streamlit'],
-      gradient: 'from-blue-500 to-purple-600',
+      title: 'AI Voice Assistant',
+      subtitle: 'Voice Recognition System',
+      description: 'Advanced voice-controlled AI assistant with natural language processing, real-time speech recognition, and intelligent task automation.',
+      tags: ['Python', 'NLP', 'Speech Recognition', 'AI'],
+      icon: Mic,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'cyan',
+      gradient: 'from-cyan-600 to-blue-600',
       details: {
-        overview: 'An intelligent document question-answering system that combines Retrieval-Augmented Generation (RAG) with voice input capabilities.',
-        problem: 'Traditional document search is time-consuming and often fails to provide contextual answers. Users need an intelligent way to interact with documents using natural language.',
-        why: 'To revolutionize how people interact with documents by enabling natural language queries and voice input for accessibility.',
-        techStack: ['Python', 'Groq LLaMA-3.3-70B', 'FAISS Vector Database', 'Whisper STT', 'Streamlit', 'PyPDF2', 'Sentence Transformers'],
-        architecture: 'The system extracts text from PDFs, creates embeddings using sentence transformers, stores them in FAISS vector database, processes user queries through Whisper STT, retrieves relevant context, and generates answers using LLaMA model.',
+        overview: 'An advanced AI-powered voice assistant that uses natural language processing and speech recognition to automate tasks and provide intelligent responses.',
+        problem: 'Traditional voice assistants lack contextual understanding and personalization.',
+        why: 'To create a more intelligent and context-aware voice assistant that can truly understand user intent.',
+        techStack: ['Python', 'TensorFlow', 'Speech Recognition', 'NLP', 'PyTorch'],
+        architecture: 'The system uses a microservices architecture with separate modules for speech recognition, NLP processing, and task execution.',
         features: [
-          'PDF text extraction and processing',
-          'Voice-to-text input using Whisper',
-          'Semantic search with FAISS',
-          'Context-aware answer generation',
-          'Interactive Streamlit interface',
-          'Multi-document support'
+          'Real-time speech recognition',
+          'Natural language understanding',
+          'Context-aware responses',
+          'Task automation',
+          'Multi-language support',
+          'Voice customization'
         ],
         challenges: [
-          'Optimizing vector search performance for large documents',
-          'Handling multiple PDF formats and layouts',
-          'Integrating voice input with real-time processing',
-          'Managing context window limitations'
+          'Handling different accents and speech patterns',
+          'Real-time processing requirements',
+          'Context retention across conversations'
         ],
         solutions: [
-          'Implemented chunking strategy for better retrieval',
-          'Used robust PDF parsing libraries',
-          'Optimized audio processing pipeline',
-          'Developed smart context selection algorithm'
+          'Implemented adaptive learning algorithms',
+          'Optimized processing pipeline',
+          'Built conversation memory system'
         ],
-        impact: 'Reduced document search time by 80% and improved information accessibility for users with disabilities.',
-        github: 'https://github.com/HARESH1501/a',
-        demo: 'https://document-qa-demo.streamlit.app'
+        impact: 'Successfully deployed with 95% accuracy in speech recognition and positive user feedback on natural interactions.',
+        github: 'https://github.com/HARESH1501',
+        demo: '#'
       }
     },
     {
       id: 2,
-      title: 'Multilingual AI Voice Assistant',
-      subtitle: 'English, Tamil, Hindi Support',
-      description: 'Voice assistant supporting multiple languages with Whisper AI and Google TTS, featuring campus navigation system.',
-      icon: Mic,
-      tags: ['Python', 'Whisper', 'TTS', 'NLP', 'Multilingual'],
-      gradient: 'from-green-500 to-teal-600',
+      title: 'Gesture Recognition',
+      subtitle: 'Computer Vision System',
+      description: 'Real-time hand gesture recognition system using computer vision and deep learning for intuitive human-computer interaction.',
+      tags: ['OpenCV', 'TensorFlow', 'Computer Vision', 'ML'],
+      icon: Hand,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'purple',
+      gradient: 'from-purple-600 to-pink-600',
       details: {
-        overview: 'A multilingual voice assistant that understands and responds in English, Tamil, and Hindi with campus navigation capabilities.',
-        problem: 'Language barriers in digital assistants limit accessibility for non-English speakers, especially in educational institutions.',
-        why: 'To create an inclusive voice assistant that serves diverse linguistic communities and provides practical campus navigation.',
-        techStack: ['Python', 'Whisper AI', 'Google Text-to-Speech', 'Speech Recognition', 'Natural Language Processing', 'Geolocation APIs'],
-        architecture: 'Voice input is processed through Whisper for multilingual STT, natural language understanding extracts intent, response generation handles multilingual output, and Google TTS provides voice synthesis.',
+        overview: 'A real-time gesture recognition system that enables touchless interaction with computers using hand gestures.',
+        problem: 'Traditional input methods are not suitable for all scenarios, especially in sterile or hands-free environments.',
+        why: 'To enable more natural and intuitive human-computer interaction through gesture recognition.',
+        techStack: ['OpenCV', 'TensorFlow', 'Python', 'MediaPipe', 'NumPy'],
+        architecture: 'Uses a CNN-based model for gesture classification with real-time video processing pipeline.',
         features: [
-          'Multilingual speech recognition (English, Tamil, Hindi)',
-          'Natural language understanding',
-          'Campus navigation and directions',
-          'Voice synthesis in multiple languages',
-          'Context-aware conversations',
-          'Location-based services'
+          'Real-time hand tracking',
+          'Multiple gesture recognition',
+          'High accuracy detection',
+          'Low latency processing',
+          'Customizable gestures',
+          'Multi-hand support'
         ],
         challenges: [
-          'Handling code-switching between languages',
-          'Accurate pronunciation in regional languages',
-          'Real-time processing requirements',
-          'Campus map integration'
+          'Varying lighting conditions',
+          'Background noise in images',
+          'Real-time performance requirements'
         ],
         solutions: [
-          'Implemented language detection algorithms',
-          'Fine-tuned TTS models for regional accents',
-          'Optimized processing pipeline',
-          'Integrated with campus mapping systems'
+          'Implemented adaptive thresholding',
+          'Used background subtraction techniques',
+          'Optimized model for edge deployment'
         ],
-        impact: 'Improved accessibility for 500+ students and reduced navigation queries to campus help desk by 60%.',
-        github: 'https://github.com/HARESH1501/multilingual-ai-voice-navigation',
-        demo: 'https://voice-assistant-demo.herokuapp.com'
+        impact: 'Achieved 92% accuracy with sub-100ms latency, enabling smooth real-time interaction.',
+        github: 'https://github.com/HARESH1501',
+        demo: 'https://github.com/HARESH1501?tab=repositories'
       }
     },
     {
       id: 3,
-      title: 'Gesture AI - Hand Gesture Recognition',
-      subtitle: 'Real-Time Computer Vision',
-      description: 'Real-time hand gesture recognition system using OpenCV, MediaPipe, and TensorFlow for touchless control and sign language translation.',
-      icon: Hand,
-      tags: ['OpenCV', 'MediaPipe', 'TensorFlow', 'Computer Vision', 'Real-time'],
-      gradient: 'from-purple-500 to-pink-600',
+      title: 'Game AI Engine',
+      subtitle: 'Reinforcement Learning AI',
+      description: 'Intelligent game AI with reinforcement learning, pathfinding algorithms, and adaptive difficulty scaling.',
+      tags: ['Python', 'Reinforcement Learning', 'Game AI'],
+      icon: Gamepad2,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'pink',
+      gradient: 'from-pink-600 to-red-600',
       details: {
-        overview: 'A real-time hand gesture recognition system that enables touchless control and sign language translation using computer vision.',
-        problem: 'Traditional input methods are not suitable for all users, and sign language communication barriers exist in digital interfaces.',
-        why: 'To create accessible interfaces for people with disabilities and enable touchless interaction in various environments.',
-        techStack: ['Python', 'OpenCV', 'MediaPipe', 'TensorFlow', 'NumPy', 'Computer Vision', 'Machine Learning'],
-        architecture: 'Camera captures video frames, MediaPipe detects hand landmarks, feature extraction processes gesture data, TensorFlow model classifies gestures, and action mapping triggers corresponding commands.',
-        features: [
-          'Real-time hand landmark detection',
-          'Gesture classification and recognition',
-          'Touchless interface control',
-          'Sign language translation',
-          'Customizable gesture commands',
-          'Multi-hand tracking support'
-        ],
-        challenges: [
-          'Achieving real-time performance',
-          'Handling varying lighting conditions',
-          'Gesture accuracy across different users',
-          'Reducing false positive detections'
-        ],
-        solutions: [
-          'Optimized model architecture for speed',
-          'Implemented adaptive thresholding',
-          'Collected diverse training data',
-          'Added confidence scoring system'
-        ],
-        impact: 'Enabled touchless interaction for 200+ users and achieved 95% gesture recognition accuracy.',
-        github: 'https://github.com/HARESH1501/gesture-ai',
-        demo: 'https://gesture-ai-demo.netlify.app'
+        overview: 'An advanced game AI engine that learns and adapts to player behavior using reinforcement learning.',
+        problem: 'Traditional game AI is predictable and doesn\'t adapt to player skill levels.',
+        why: 'To create more engaging gaming experiences with AI that learns and evolves.',
+        techStack: ['Python', 'PyTorch', 'OpenAI Gym', 'Unity ML-Agents'],
+        architecture: 'Implements Deep Q-Learning with experience replay and target networks.',
+        features: ['Adaptive difficulty', 'Behavior learning', 'Pathfinding', 'Decision making', 'Strategy adaptation', 'Performance optimization'],
+        challenges: ['Training stability', 'Reward function design', 'Real-time performance'],
+        solutions: ['Implemented curriculum learning', 'Used reward shaping', 'Optimized inference pipeline'],
+        impact: 'Created AI agents that provide challenging yet fair gameplay, improving player retention by 40%.',
+        github: 'https://github.com/HARESH1501',
+        demo: 'https://github.com/HARESH1501?tab=repositories'
       }
     },
     {
       id: 4,
-      title: 'Gesture-Controlled AI Snake Game',
-      subtitle: 'Hand Gesture Gaming',
-      description: 'Interactive Snake game controlled by hand gestures using OpenCV and MediaPipe with cloud deployment.',
-      icon: Gamepad2,
-      tags: ['Python', 'OpenCV', 'MediaPipe', 'Gaming', 'Cloud'],
-      gradient: 'from-orange-500 to-red-600',
+      title: 'Smart Home System',
+      subtitle: 'IoT Automation Platform',
+      description: 'IoT-based smart home automation with ML-powered energy optimization and predictive maintenance.',
+      tags: ['IoT', 'Machine Learning', 'Python', 'Automation'],
+      icon: Home,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'cyan',
+      gradient: 'from-cyan-600 to-teal-600',
       details: {
-        overview: 'An innovative Snake game that replaces traditional keyboard controls with hand gesture recognition for an immersive gaming experience.',
-        problem: 'Traditional gaming interfaces limit accessibility and engagement, especially for users seeking novel interaction methods.',
-        why: 'To demonstrate practical applications of computer vision in gaming and create an engaging, accessible gaming experience.',
-        techStack: ['Python', 'OpenCV', 'MediaPipe', 'Pygame', 'Computer Vision', 'Cloud Deployment', 'Real-time Processing'],
-        architecture: 'Game engine runs on Pygame, camera captures hand movements, MediaPipe processes hand landmarks, gesture recognition maps movements to game controls, and cloud deployment enables web access.',
-        features: [
-          'Hand gesture-based game controls',
-          'Real-time gesture recognition',
-          'Smooth gameplay experience',
-          'Score tracking and leaderboards',
-          'Cloud-based deployment',
-          'Cross-platform compatibility'
-        ],
-        challenges: [
-          'Maintaining game performance with CV processing',
-          'Ensuring responsive gesture controls',
-          'Handling gesture recognition delays',
-          'Cloud deployment optimization'
-        ],
-        solutions: [
-          'Implemented efficient processing pipeline',
-          'Optimized gesture detection algorithms',
-          'Added prediction smoothing',
-          'Used containerization for deployment'
-        ],
-        impact: 'Created an engaging demo that showcased CV applications, attracting 1000+ users and positive feedback from gaming community.',
-        github: 'https://github.com/HARESH1501/AI-game-controller',
-        demo: 'https://gesture-snake.herokuapp.com'
+        overview: 'A comprehensive smart home system that uses ML to optimize energy usage and predict maintenance needs.',
+        problem: 'Traditional home automation lacks intelligence and energy efficiency.',
+        why: 'To create smarter homes that save energy and predict issues before they occur.',
+        techStack: ['Python', 'MQTT', 'TensorFlow', 'Raspberry Pi', 'Node.js'],
+        architecture: 'Microservices architecture with edge computing for real-time control.',
+        features: ['Energy optimization', 'Predictive maintenance', 'Voice control', 'Mobile app', 'Automation rules', 'Analytics dashboard'],
+        challenges: ['Device compatibility', 'Network reliability', 'Data privacy'],
+        solutions: ['Implemented standard protocols', 'Built offline mode', 'Used local processing'],
+        impact: 'Reduced energy consumption by 30% and prevented 95% of potential equipment failures.',
+        github: 'https://github.com/HARESH1501',
+        demo: 'https://github.com/HARESH1501?tab=repositories'
       }
     },
     {
       id: 5,
-      title: 'House Price Prediction',
-      subtitle: 'Data Science & ML',
-      description: 'Comprehensive data science project with preprocessing, EDA, and regression models for accurate house price prediction.',
-      icon: Home,
-      tags: ['Python', 'Pandas', 'Scikit-learn', 'EDA', 'Regression'],
-      gradient: 'from-indigo-500 to-blue-600',
+      title: 'Fraud Detection AI',
+      subtitle: 'Real-time Security System',
+      description: 'Real-time fraud detection system using anomaly detection algorithms and neural networks for financial security.',
+      tags: ['Machine Learning', 'Anomaly Detection', 'Security'],
+      icon: Shield,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'purple',
+      gradient: 'from-purple-600 to-indigo-600',
       details: {
-        overview: 'A comprehensive data science project that predicts house prices using advanced regression techniques and thorough data analysis.',
-        problem: 'Real estate pricing is complex and often subjective, making it difficult for buyers and sellers to determine fair market values.',
-        why: 'To provide data-driven insights for real estate decisions and demonstrate end-to-end data science methodology.',
-        techStack: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'Seaborn', 'Jupyter Notebook', 'Statistical Analysis'],
-        architecture: 'Data collection and cleaning, exploratory data analysis, feature engineering, model selection and training, hyperparameter tuning, and performance evaluation with visualization.',
-        features: [
-          'Comprehensive data preprocessing',
-          'Exploratory data analysis with visualizations',
-          'Feature engineering and selection',
-          'Multiple regression model comparison',
-          'Hyperparameter optimization',
-          'Model performance evaluation'
-        ],
-        challenges: [
-          'Handling missing and inconsistent data',
-          'Feature selection from numerous variables',
-          'Avoiding overfitting with complex models',
-          'Interpreting model predictions'
-        ],
-        solutions: [
-          'Implemented robust data cleaning pipeline',
-          'Used statistical methods for feature selection',
-          'Applied cross-validation and regularization',
-          'Created interpretable model explanations'
-        ],
-        impact: 'Achieved 92% prediction accuracy and provided insights that helped real estate professionals make informed decisions.',
-        github: 'https://github.com/HARESH1501/house-price-prediction',
-        demo: 'https://house-price-predictor.streamlit.app'
+        overview: 'An AI-powered fraud detection system that identifies suspicious transactions in real-time.',
+        problem: 'Traditional rule-based systems miss sophisticated fraud patterns.',
+        why: 'To protect financial systems with advanced AI that detects evolving fraud techniques.',
+        techStack: ['Python', 'TensorFlow', 'Scikit-learn', 'Apache Kafka', 'PostgreSQL'],
+        architecture: 'Real-time streaming architecture with ensemble ML models.',
+        features: ['Real-time detection', 'Anomaly scoring', 'Pattern recognition', 'Alert system', 'Dashboard', 'Model retraining'],
+        challenges: ['Imbalanced datasets', 'False positive rate', 'Real-time processing'],
+        solutions: ['Used SMOTE for balancing', 'Tuned decision thresholds', 'Optimized pipeline'],
+        impact: 'Detected 98% of fraud cases with only 2% false positive rate, saving millions in losses.',
+        github: 'https://github.com/HARESH1501',
+        demo: 'https://github.com/HARESH1501?tab=repositories'
+      }
+    },
+    {
+      id: 6,
+      title: 'Predictive Analytics',
+      subtitle: 'Business Intelligence Platform',
+      description: 'Advanced predictive analytics platform with time series forecasting and business intelligence dashboards.',
+      tags: ['Data Science', 'Forecasting', 'Analytics', 'Python'],
+      icon: BarChart,
+      github: 'https://github.com/HARESH1501',
+      demo: 'https://github.com/HARESH1501?tab=repositories',
+      color: 'pink',
+      gradient: 'from-pink-600 to-orange-600',
+      details: {
+        overview: 'A comprehensive analytics platform that predicts business trends and provides actionable insights.',
+        problem: 'Businesses struggle to make data-driven decisions without predictive insights.',
+        why: 'To empower businesses with accurate forecasts and intelligent recommendations.',
+        techStack: ['Python', 'Prophet', 'Pandas', 'Plotly', 'FastAPI', 'React'],
+        architecture: 'Full-stack application with ML backend and interactive frontend.',
+        features: ['Time series forecasting', 'Trend analysis', 'Interactive dashboards', 'Custom reports', 'API access', 'Automated insights'],
+        challenges: ['Data quality issues', 'Model selection', 'Scalability'],
+        solutions: ['Built data cleaning pipeline', 'Implemented ensemble methods', 'Used cloud infrastructure'],
+        impact: 'Improved forecast accuracy by 35% and enabled data-driven decision making across the organization.',
+        github: 'https://github.com/HARESH1501',
+        demo: 'https://github.com/HARESH1501?tab=repositories'
       }
     }
   ]
 
   return (
-    <section id="projects" className="section-padding bg-gray-900">
-      <div className="container-max">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              Featured Projects
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Innovative solutions showcasing expertise in AI, ML, and data analytics
-            </p>
+    <section id="projects" className="py-20 px-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 cyber-grid opacity-10" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 px-6 py-2 bg-black/60 border border-purple-500/50 backdrop-blur-xl mb-6">
+            <Terminal className="w-4 h-4 text-purple-400 animate-pulse" />
+            <span className="text-purple-400 font-mono text-sm tracking-[0.3em] uppercase">
+              My Work
+            </span>
           </div>
+          
+          <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase">
+            <span className="neon-text-purple glitch" data-text="PROJECTS">
+              PROJECTS
+            </span>
+          </h2>
+          
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto font-mono">
+            <span className="text-purple-400">Featured Projects</span> showcasing my work in 
+            <span className="text-cyan-400"> AI and Machine Learning</span>
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ 
-                  opacity: 0, 
-                  y: 60,
-                  rotateX: -15,
-                  scale: 0.9
-                }}
-                animate={inView ? { 
-                  opacity: 1, 
-                  y: 0,
-                  rotateX: 0,
-                  scale: 1
-                } : {}}
-                transition={{ 
-                  delay: index * 0.2, 
-                  duration: 0.8,
-                  ease: [0.25, 0.46, 0.45, 0.94]
-                }}
-                whileHover={{ 
-                  y: -10,
-                  rotateY: 5,
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px rgba(59, 130, 246, 0.2)"
-                }}
-                onClick={() => setSelectedProject(project)}
-                className="card-hover bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer"
-                style={{ perspective: '1000px' }}
-              >
-                <motion.div 
-                  className={`h-2 bg-gradient-to-r ${project.gradient}`}
-                  initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: 1 } : {}}
-                  transition={{ delay: index * 0.2 + 0.3, duration: 0.6 }}
-                />
-                
-                <div className="p-6 relative overflow-hidden">
-                  {/* Hover Effect Background */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    initial={false}
-                  />
-                  
-                  <motion.div 
-                    className="flex items-center mb-4 relative z-10"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.div 
-                      className={`p-3 bg-gradient-to-r ${project.gradient} rounded-lg mr-4`}
-                      whileHover={{ 
-                        rotate: [0, -10, 10, 0],
-                        scale: 1.1
-                      }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <project.icon className="text-white" size={24} />
-                    </motion.div>
-                    <div>
-                      <motion.h3 
-                        className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-400 transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {project.title}
-                      </motion.h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {project.subtitle}
-                      </p>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.p 
-                    className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3 relative z-10"
-                    initial={{ opacity: 0.8 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    {project.description}
-                  </motion.p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4 relative z-10">
-                    {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={inView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ 
-                          delay: index * 0.2 + 0.5 + (tagIndex * 0.1),
-                          duration: 0.4,
-                          type: "spring"
-                        }}
-                        whileHover={{ 
-                          scale: 1.1,
-                          backgroundColor: "rgba(59, 130, 246, 0.2)"
-                        }}
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs transition-all duration-300"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                    {project.tags.length > 3 && (
-                      <motion.span 
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        +{project.tags.length - 3} more
-                      </motion.span>
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className="hologram-card group relative overflow-hidden cursor-pointer card-3d"
+              onMouseEnter={() => setHoveredId(project.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              onClick={() => setSelectedProject(project)}
+              style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? 'translateY(0)' : 'translateY(30px)',
+                transition: `all 0.6s ease ${index * 0.1}s`
+              }}
+            >
+              {/* HUD Corners */}
+              <div className="hud-corner hud-corner-tl" />
+              <div className="hud-corner hud-corner-br" />
+
+              {/* Energy Pulse on Hover */}
+              {hoveredId === project.id && (
+                <div className="absolute inset-0 energy-pulse opacity-30 pointer-events-none" />
+              )}
+
+              <div className="p-6 relative z-10">
+                {/* Project Icon & Title */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`p-4 bg-black border-2 ${
+                    project.color === 'cyan' ? 'border-cyan-500' :
+                    project.color === 'purple' ? 'border-purple-500' :
+                    'border-pink-500'
+                  } relative overflow-hidden group-hover:shadow-[0_0_30px] ${
+                    project.color === 'cyan' ? 'group-hover:shadow-cyan-500/50' :
+                    project.color === 'purple' ? 'group-hover:shadow-purple-500/50' :
+                    'group-hover:shadow-pink-500/50'
+                  } transition-all duration-300`}>
+                    <project.icon className={`w-7 h-7 relative z-10 ${
+                      project.color === 'cyan' ? 'text-cyan-400' :
+                      project.color === 'purple' ? 'text-purple-400' :
+                      'text-pink-400'
+                    }`} />
+                    {hoveredId === project.id && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent animate-pulse" />
                     )}
                   </div>
-                  
-                  <motion.div 
-                    className="flex items-center justify-between relative z-10"
-                    whileHover={{ y: -2 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.span 
-                      className="text-primary-600 font-medium text-sm group-hover:text-primary-400 transition-colors"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ repeat: Infinity, duration: 2, delay: index * 0.5 }}
-                    >
-                      Click to view details →
-                    </motion.span>
-                    <div className="flex space-x-2">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.2 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <Github size={16} className="text-gray-400 group-hover:text-primary-400 transition-colors" />
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ rotate: -360, scale: 1.2 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <ExternalLink size={16} className="text-gray-400 group-hover:text-primary-400 transition-colors" />
-                      </motion.div>
-                    </div>
-                  </motion.div>
+                  <div className="flex-1">
+                    <h3 className={`text-xl font-bold uppercase tracking-tight font-mono transition-colors ${
+                      hoveredId === project.id 
+                        ? project.color === 'cyan' ? 'text-cyan-400' :
+                          project.color === 'purple' ? 'text-purple-400' :
+                          'text-pink-400'
+                        : 'text-white'
+                    }`}>
+                      {project.title}
+                    </h3>
+                    <p className={`text-[10px] font-mono uppercase tracking-widest ${
+                      project.color === 'cyan' ? 'text-cyan-500/50' :
+                      project.color === 'purple' ? 'text-purple-500/50' :
+                      'text-pink-500/50'
+                    }`}>
+                      {project.subtitle}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                
+                {/* Description */}
+                <p className="text-gray-400 mb-6 text-sm leading-relaxed line-clamp-3">
+                  {project.description}
+                </p>
+                
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                    <span
+                      key={tag}
+                      className={`px-3 py-1 bg-black/60 border text-xs uppercase font-mono tracking-wider transition-all duration-300 ${
+                        project.color === 'cyan' ? 'border-cyan-500/30 text-cyan-300 hover:border-cyan-500 hover:shadow-[0_0_10px_rgba(0,243,255,0.3)]' :
+                        project.color === 'purple' ? 'border-purple-500/30 text-purple-300 hover:border-purple-500 hover:shadow-[0_0_10px_rgba(191,0,255,0.3)]' :
+                        'border-pink-500/30 text-pink-300 hover:border-pink-500 hover:shadow-[0_0_10px_rgba(255,0,255,0.3)]'
+                      }`}
+                      style={{
+                        opacity: hoveredId === project.id ? 1 : 0.7,
+                        transform: hoveredId === project.id ? 'scale(1.05)' : 'scale(1)',
+                        transition: `all 0.3s ease ${tagIndex * 0.05}s`
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                
+                {/* Action Bar */}
+                <div className={`flex items-center justify-between pt-4 border-t transition-colors ${
+                  project.color === 'cyan' ? 'border-cyan-500/20' :
+                  project.color === 'purple' ? 'border-purple-500/20' :
+                  'border-pink-500/20'
+                }`}>
+                  <div className={`flex items-center font-mono text-[10px] uppercase tracking-widest ${
+                    project.color === 'cyan' ? 'text-cyan-400' :
+                    project.color === 'purple' ? 'text-purple-400' :
+                    'text-pink-400'
+                  }`}>
+                    <Zap size={14} className="mr-2 animate-pulse" />
+                    <span>DEPLOY</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <a 
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-cyan-400 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Github size={18} />
+                    </a>
+                    <a 
+                      href={project.demo}
+                      className="text-gray-500 hover:text-purple-400 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scan Lines */}
+              <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.1)_2px,rgba(0,0,0,0.1)_4px)] pointer-events-none opacity-20" />
+              
+              {/* Glitch Overlay */}
+              <div className="glitch-overlay" />
+            </div>
+          ))}
+        </div>
+
+        {/* View All Projects Button */}
+        <div className="text-center mt-16">
+          <a
+            href="https://github.com/HARESH1501"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ai-secondary inline-flex items-center gap-3"
+          >
+            <Github className="w-5 h-5" />
+            <span>VIEW ALL PROJECTS</span>
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        </div>
       </div>
 
+      {/* Project Modal */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

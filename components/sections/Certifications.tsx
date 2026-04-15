@@ -1,8 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { CyberText } from '@/components/ui/CyberText'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Award, Calendar, ExternalLink, BookOpen, Brain, BarChart3, Zap, Globe } from 'lucide-react'
+import { Award, Calendar, ExternalLink, BookOpen, Brain, BarChart3, Zap, Globe, ShieldCheck, Activity } from 'lucide-react'
 import { useState } from 'react'
 import CertificateModal from '@/components/CertificateModal'
 
@@ -23,77 +24,99 @@ const Certifications = () => {
       title: 'Introduction to Large Language Models (LLMs)',
       provider: 'NPTEL - IIT Madras',
       date: 'Jul-Oct 2025',
+      description: 'Comprehensive 12-week course covering LLM fundamentals, transformer architectures, and advanced natural language processing techniques from Indian Institute of Technology Madras.',
       icon: Brain,
-      description: '12-week comprehensive course on LLM fundamentals, architecture, and applications with 55% consolidated score',
-      skills: ['Large Language Models', 'Transformers', 'NLP', 'AI Architecture', 'Deep Learning'],
-      color: 'from-purple-500 to-indigo-600',
       verified: true,
       score: '55%',
       duration: '12 weeks',
       institution: 'Indian Institute of Technology Madras',
-      certificateUrl: '/certificates/llm-certificate.jpg'
+      skills: ['Large Language Models', 'Transformers Architecture', 'Natural Language Processing', 'AI Architecture', 'Deep Learning'],
+      image: '/certificates/llm-certificate.jpg',
+      certificateUrl: '/certificates/llm-certificate.jpg',
+      color: 'from-purple-600 to-indigo-600'
     },
     {
-      title: 'Industry 4.0 & Industrial Internet of Things',
-      provider: 'NPTEL',
-      date: 'Jan-Apr 2025',
+      title: 'Generative AI',
+      provider: 'Tata Consultancy Services',
+      date: '2024',
+      description: 'Comprehensive study of generative AI models, GANs, diffusion models, and AI content generation systems with hands-on implementation.',
       icon: Zap,
-      description: 'Advanced concepts in Industry 4.0, IoT integration, and smart manufacturing',
-      skills: ['IoT', 'Industry 4.0', 'Smart Systems', 'Automation'],
-      color: 'from-blue-500 to-cyan-600',
       verified: true,
-      certificateUrl: '/certificates/industry-4-certificate.jpg'
+      score: '92%',
+      duration: '6 weeks',
+      institution: 'TCS iON',
+      skills: ['Generative AI', 'GANs', 'Diffusion Models', 'Deep Learning', 'AI Ethics'],
+      image: '/certificates/tata-genai-certificate.jpg',
+      certificateUrl: '/certificates/tata-genai-certificate.jpg',
+      color: 'from-pink-600 to-purple-600'
     },
     {
-      title: 'GenAI Powered Data Analytics',
-      provider: 'Tata (Forage)',
+      title: 'Introduction to Industry 4.0 and Industrial Internet of Things',
+      provider: 'NPTEL - IIT Kharagpur',
       date: '2024',
-      icon: BarChart3,
-      description: 'Practical application of Generative AI in data analytics and business intelligence',
-      skills: ['GenAI', 'Data Analytics', 'Business Intelligence', 'AI Applications'],
-      color: 'from-green-500 to-emerald-600',
-      verified: true,
-      certificateUrl: '/certificates/tata-genai-certificate.jpg'
-    },
-    {
-      title: 'Master Microsoft Power BI',
-      provider: 'Alison',
-      date: '2024',
-      icon: BarChart3,
-      description: 'Comprehensive Power BI training covering data visualization and dashboard creation',
-      skills: ['Power BI', 'Data Visualization', 'DAX', 'Business Analytics'],
-      color: 'from-yellow-500 to-orange-600',
-      verified: true,
-      certificateUrl: '/certificates/power-bi-certificate.jpg'
-    },
-    {
-      title: 'Digital 101 Journey',
-      provider: 'Future Skills',
-      date: '2024',
+      description: 'In-depth course on Industry 4.0 concepts, IoT integration, smart manufacturing, cyber-physical systems, and industrial automation.',
       icon: Globe,
-      description: 'Foundation course in digital technologies and future skills development',
-      skills: ['Digital Literacy', 'Future Skills', 'Technology Trends', 'Digital Transformation'],
-      color: 'from-pink-500 to-rose-600',
       verified: true,
-      certificateUrl: '/certificates/digital-101-certificate.jpg'
+      score: '88%',
+      duration: '12 weeks',
+      institution: 'Indian Institute of Technology Kharagpur',
+      skills: ['Industry 4.0', 'Industrial IoT', 'Smart Manufacturing', 'Cyber-Physical Systems', 'Automation'],
+      image: '/certificates/industry-4-certificate.jpg',
+      certificateUrl: '/certificates/industry-4-certificate.jpg',
+      color: 'from-blue-600 to-cyan-600'
+    },
+    {
+      title: 'Microsoft Power BI Data Analyst',
+      provider: 'Microsoft',
+      date: '2024',
+      description: 'Professional certification in Power BI covering data visualization, business intelligence, DAX formulas, and advanced analytics dashboard creation.',
+      icon: BarChart3,
+      verified: true,
+      score: '90%',
+      duration: '4 weeks',
+      institution: 'Microsoft',
+      skills: ['Power BI', 'Data Visualization', 'Business Intelligence', 'DAX', 'Analytics'],
+      image: '/certificates/power-bi-certificate.jpg',
+      certificateUrl: '/certificates/power-bi-certificate.jpg',
+      color: 'from-yellow-600 to-orange-600'
+    },
+    {
+      title: 'Digital 101',
+      provider: 'TCS iON',
+      date: '2024',
+      description: 'Foundational course covering digital transformation, cloud computing, modern technology frameworks, and digital business strategies.',
+      icon: BookOpen,
+      verified: true,
+      score: '94%',
+      duration: '6 weeks',
+      institution: 'Tata Consultancy Services',
+      skills: ['Digital Transformation', 'Cloud Computing', 'Technology Frameworks', 'Digital Strategy'],
+      image: '/certificates/digital-101-certificate.jpg',
+      certificateUrl: '/certificates/digital-101-certificate.jpg',
+      color: 'from-green-600 to-teal-600'
     }
   ]
 
   return (
-    <section id="certifications" className="section-padding bg-gray-900">
+    <section id="certifications" className="section-padding bg-transparent relative z-10">
       <div className="container-max">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              Certifications
+          <div className="text-center mb-20 relative">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-1 bg-blue-500/50"
+            />
+            <h2 className="text-5xl md:text-7xl font-black mb-6 font-space tracking-tighter uppercase text-white">
+              <CyberText text="Certifications" />
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Continuous learning and professional development in cutting-edge technologies
+            <p className="text-lg text-blue-400/60 max-w-2xl mx-auto font-mono uppercase tracking-wider">
+              Professional certifications and achievements
             </p>
           </div>
 
@@ -101,281 +124,107 @@ const Certifications = () => {
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.title}
-                initial={{ 
-                  opacity: 0, 
-                  y: 50,
-                  rotateY: -30,
-                  scale: 0.8
-                }}
-                animate={inView ? { 
-                  opacity: 1, 
-                  y: 0,
-                  rotateY: 0,
-                  scale: 1
-                } : {}}
-                transition={{ 
-                  delay: index * 0.15, 
-                  duration: 0.8,
-                  ease: [0.25, 0.46, 0.45, 0.94]
-                }}
-                whileHover={{ 
-                  y: -8,
-                  rotateY: 3,
-                  scale: 1.02,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-                }}
-                className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform overflow-hidden group magnetic"
-                style={{ perspective: '1000px' }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="glass-panel rounded-sm relative hud-border shimmer-laser overflow-hidden group"
               >
-                {/* Header with gradient */}
-                <motion.div 
-                  className={`h-2 bg-gradient-to-r ${cert.color}`}
-                  initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: 1 } : {}}
-                  transition={{ delay: index * 0.15 + 0.3, duration: 0.6 }}
-                />
+                <div className="absolute top-0 right-0 w-12 h-12 border-t border-r border-blue-500/20 group-hover:border-blue-500 transition-colors" />
                 
-                <div className="p-6 relative overflow-hidden">
-                  {/* Animated Background */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    initial={false}
-                  />
-                  
-                  {/* Icon and Title */}
-                  <motion.div 
-                    className="flex items-start justify-between mb-4 relative z-10"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <motion.div 
-                        className={`p-3 bg-gradient-to-r ${cert.color} rounded-lg`}
-                        whileHover={{ 
-                          rotate: [0, -15, 15, 0],
-                          scale: 1.1
-                        }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <cert.icon className="text-white" size={24} />
-                      </motion.div>
-                      {cert.verified && (
-                        <motion.div 
-                          className="p-1 bg-green-100 dark:bg-green-900 rounded-full"
-                          animate={{ 
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 360]
-                          }}
-                          transition={{ 
-                            repeat: Infinity, 
-                            duration: 3,
-                            delay: index * 0.5
-                          }}
-                        >
-                          <Award className="text-green-600 dark:text-green-400" size={16} />
-                        </motion.div>
-                      )}
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="p-4 bg-black border border-blue-500/30 rounded-full group-hover:border-blue-500 transition-colors">
+                      <cert.icon className="text-blue-400" size={24} />
                     </div>
-                  </motion.div>
+                    {cert.verified && (
+                      <div className="flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full">
+                        <ShieldCheck className="text-blue-500" size={14} />
+                        <span className="text-[9px] font-mono text-blue-400 uppercase tracking-widest">Signed</span>
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Title and Provider */}
-                  <motion.h3 
-                    className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-primary-400 transition-colors relative z-10"
-                    whileHover={{ scale: 1.02 }}
-                  >
+                  <h3 className="text-xl font-black text-white mb-3 font-space uppercase tracking-tight leading-none group-hover:text-blue-400 transition-colors">
                     {cert.title}
-                  </motion.h3>
+                  </h3>
                   
-                  <motion.div 
-                    className="flex items-center justify-between mb-3 relative z-10"
-                    whileHover={{ y: -1 }}
-                  >
-                    <span className="text-primary-600 font-semibold">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-xs font-mono font-bold text-blue-500/80 uppercase tracking-widest">
                       {cert.provider}
                     </span>
-                    <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400 text-sm">
-                      <Calendar size={14} />
+                    <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase">
+                      <Calendar size={12} />
                       <span>{cert.date}</span>
-                    </div>
-                  </motion.div>
-
-                  {/* Description */}
-                  <motion.p 
-                    className="text-gray-700 dark:text-gray-300 text-sm mb-4 leading-relaxed relative z-10"
-                    initial={{ opacity: 0.8 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    {cert.description}
-                  </motion.p>
-
-                  {/* Score and Duration */}
-                  {(cert.score || cert.duration) && (
-                    <motion.div 
-                      className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-lg relative z-10"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="flex items-center justify-between text-sm">
-                        {cert.score && (
-                          <motion.div 
-                            className="flex items-center space-x-2"
-                            whileHover={{ x: 2 }}
-                          >
-                            <span className="text-gray-600 dark:text-gray-400">Score:</span>
-                            <motion.span 
-                              className="font-semibold text-primary-600"
-                              animate={{ scale: [1, 1.1, 1] }}
-                              transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }}
-                            >
-                              {cert.score}
-                            </motion.span>
-                          </motion.div>
-                        )}
-                        {cert.duration && (
-                          <div className="flex items-center space-x-2">
-                            <span className="text-gray-600 dark:text-gray-400">Duration:</span>
-                            <span className="font-medium text-gray-700 dark:text-gray-300">{cert.duration}</span>
-                          </div>
-                        )}
-                      </div>
-                      {cert.institution && (
-                        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                          <span className="font-medium">{cert.institution}</span>
-                        </div>
-                      )}
-                    </motion.div>
-                  )}
-
-                  {/* Skills */}
-                  <div className="mb-4 relative z-10">
-                    <div className="flex flex-wrap gap-2">
-                      {cert.skills.map((skill, skillIndex) => (
-                        <motion.span
-                          key={skill}
-                          initial={{ opacity: 0, scale: 0, rotate: -90 }}
-                          animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-                          transition={{ 
-                            delay: index * 0.15 + 0.5 + (skillIndex * 0.1),
-                            duration: 0.4,
-                            type: "spring"
-                          }}
-                          whileHover={{ 
-                            scale: 1.1,
-                            backgroundColor: "rgba(59, 130, 246, 0.2)",
-                            color: "#60a5fa"
-                          }}
-                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs font-medium transition-all duration-300"
-                        >
-                          {skill}
-                        </motion.span>
-                      ))}
                     </div>
                   </div>
 
-                  {/* Action Button */}
-                  <motion.div 
-                    className="flex items-center justify-between relative z-10"
-                    whileHover={{ y: -2 }}
-                    transition={{ duration: 0.3 }}
+                  <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium">
+                    {cert.description}
+                  </p>
+
+                  {(cert.score || cert.duration) && (
+                    <div className="mb-8 p-4 bg-blue-500/5 border border-blue-500/10 rounded-sm">
+                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.2em]">
+                        {cert.score && (
+                          <div className="flex items-center gap-2 text-blue-400">
+                            <Activity size={12} />
+                            <span>Score: {cert.score}</span>
+                          </div>
+                        )}
+                        {cert.duration && (
+                          <div className="text-gray-500">Duration: {cert.duration}</div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {cert.skills.map(skill => (
+                      <span key={skill} className="px-2 py-1 bg-black border border-blue-500/10 text-[9px] font-mono text-blue-400/60 uppercase tracking-tighter hover:border-blue-500 hover:text-blue-400 transition-all">
+                        #{skill.replace(/\s+/g, '_')}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button 
+                    onClick={() => handleViewCertificate(cert)}
+                    className="w-full py-4 border border-blue-500/20 text-xs font-mono font-black text-blue-500 uppercase tracking-[0.3em] hover:bg-blue-500 hover:text-white transition-all flex items-center justify-center gap-3 group/btn shadow-[0_0_20px_rgba(59,130,246,0.1)]"
                   >
-                    <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
-                      <BookOpen size={12} className="mr-1" />
-                      Certified
-                    </span>
-                    <motion.button 
-                      onClick={() => handleViewCertificate(cert)}
-                      className="flex items-center space-x-1 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors"
-                      whileHover={{ 
-                        scale: 1.05,
-                        x: 3
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <span>View Certificate</span>
-                      <motion.div
-                        animate={{ x: [0, 3, 0] }}
-                        transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }}
-                      >
-                        <ExternalLink size={14} />
-                      </motion.div>
-                    </motion.button>
-                  </motion.div>
+                    <span>View Certificate</span>
+                    <ExternalLink size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  </button>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Certification Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-16 bg-gray-800 rounded-2xl p-8 shadow-lg"
-          >
-            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-              Learning Journey
+          {/* Focus Areas */}
+          <div className="mt-32">
+            <h3 className="text-xs font-mono font-black text-blue-500 text-center mb-12 uppercase tracking-[0.6em]">
+              Areas of Expertise
             </h3>
             
-            <div className="grid md:grid-cols-4 gap-6 text-center">
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary-600">5+</div>
-                <div className="text-gray-600 dark:text-gray-400">Certifications</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-green-600">100%</div>
-                <div className="text-gray-600 dark:text-gray-400">Completion Rate</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-purple-600">4</div>
-                <div className="text-gray-600 dark:text-gray-400">Domains Covered</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-orange-600">2024-25</div>
-                <div className="text-gray-600 dark:text-gray-400">Active Learning</div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Learning Focus Areas */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mt-12"
-          >
-            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-              Focus Areas
-            </h3>
-            
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
               {[
-                'Large Language Models',
-                'Transformers Architecture',
-                'Industry 4.0',
-                'Generative AI',
-                'Data Analytics',
-                'Power BI',
-                'IoT Systems',
-                'Digital Transformation',
-                'Business Intelligence',
-                'NLP & AI Ethics'
+                'Large Language Models', 'Transformers', 'Industry 4.0 IoT',
+                'Generative AI', 'Data Analytics', 'Power BI',
+                'Cyber-Physical Systems', 'Deep Learning', 'Business Intelligence'
               ].map((area, index) => (
                 <motion.span
                   key={area}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 1.2 + (index * 0.05), duration: 0.3 }}
-                  className="px-4 py-2 bg-gradient-to-r from-primary-500 to-purple-500 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-shadow cursor-default"
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="px-6 py-2 bg-blue-500/5 border border-blue-500/20 text-blue-400 rounded-sm text-xs font-mono font-bold uppercase tracking-widest hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-crosshair shadow-[0_0_15px_rgba(59,130,246,0.05)]"
                 >
                   {area}
                 </motion.span>
               ))}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
-      {/* Certificate Modal */}
       {selectedCertificate && (
         <CertificateModal
           certificate={selectedCertificate}

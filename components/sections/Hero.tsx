@@ -1,13 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Download, Mail, Github, Linkedin, ChevronDown } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Download, Mail, Github, Linkedin, ChevronDown, Zap, Cpu, Brain } from 'lucide-react'
+import { useEffect, useState, useRef } from 'react'
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('')
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const fullText = 'Machine Learning Engineer & AI Specialist'
-  
+  const imageRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     let index = 0
     const timer = setInterval(() => {
@@ -17,305 +18,226 @@ const Hero = () => {
       } else {
         clearInterval(timer)
       }
-    }, 100)
-    
+    }, 50)
+
     return () => clearInterval(timer)
   }, [])
 
-  const handleDownloadResume = () => {
-    const link = document.createElement('a')
-    link.href = '/resume.pdf'
-    link.download = 'Haresh_KN_Resume.pdf'
-    link.click()
-  }
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
 
-  // Particle animation variants
-  const particleVariants = {
-    animate: {
-      y: [0, -100],
-      opacity: [0, 1, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeOut"
-      }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const handleDownloadResume = async () => {
+    try {
+      // Use the API route for reliable downloads
+      const link = document.createElement('a')
+      link.href = '/api/download/resume'
+      link.download = 'HARESH_KN_AIML_KPRIET.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Download failed:', error)
+      // Fallback: try direct file access
+      window.open('/resume.pdf', '_blank')
     }
   }
 
+  const handleImageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imageRef.current) return
+    const rect = imageRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left - rect.width / 2
+    const y = e.clientY - rect.top - rect.height / 2
+    const rotateX = (y / rect.height) * 20
+    const rotateY = (x / rect.width) * 20
+    imageRef.current.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`
+  }
+
+  const handleImageMouseLeave = () => {
+    if (!imageRef.current) return
+    imageRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+  }
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-950">
-      {/* Animated Background with Particles */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 opacity-90"></div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-4">
+      {/* Cyber Grid Background */}
+      <div className="absolute inset-0 cyber-grid opacity-20" />
       
-      {/* Floating Particles */}
-      <div className="particles absolute inset-0">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="particle absolute w-2 h-2 bg-primary-500/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 20}s`
-            }}
-            variants={particleVariants}
-            animate="animate"
-          />
-        ))}
-      </div>
-      
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-10"></div>
-      
-      <div className="container-max relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Scan Line */}
+      <div className="scan-line" />
+
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ 
-              duration: 1.2, 
-              ease: [0.25, 0.46, 0.45, 0.94],
-              delay: 0.2 
-            }}
-            className="text-center lg:text-left"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-              initial={{ opacity: 0, y: 50, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
-                duration: 1.5, 
-                ease: [0.25, 0.46, 0.45, 0.94],
-                delay: 0.5 
-              }}
-            >
-              <span className="text-gradient bg-gradient-to-r from-primary-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse-glow">
-                Haresh K N
+          <div className="text-center lg:text-left space-y-8">
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-black/60 border border-cyan-500/50 backdrop-blur-xl">
+              <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_10px_#00f3ff]" />
+              <span className="text-cyan-400 font-mono text-sm tracking-[0.3em] uppercase">
+                Welcome
               </span>
-            </motion.h1>
-            
-            <motion.div 
-              className="text-xl md:text-2xl text-gray-300 mb-4 h-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-            >
-              <span className="typewriter border-r-2 border-primary-400">
-                {displayText}
-              </span>
-            </motion.div>
-            
-            <motion.p 
-              className="text-lg text-gray-400 mb-8 leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 0.8 }}
-            >
-              Computer Science Engineering student specializing in Machine Learning, Computer Vision, 
-              and AI-driven solutions. Passionate about transforming data into intelligent systems.
-            </motion.p>
-          </motion.div>
-
-          {/* Right Column - Professional Photo */}
-          <motion.div
-            initial={{ opacity: 0, x: 100, scale: 0.8 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ 
-              duration: 1.2, 
-              ease: [0.25, 0.46, 0.45, 0.94],
-              delay: 0.8 
-            }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Animated Background Circles */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-primary-400/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl"
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360] 
-                }}
-                transition={{ 
-                  duration: 8, 
-                  repeat: Infinity, 
-                  ease: "linear" 
-                }}
-              />
-              
-              {/* Photo Container */}
-              <motion.div
-                whileHover={{ 
-                  scale: 1.05,
-                  rotate: [0, 1, -1, 0],
-                  transition: { duration: 0.6 }
-                }}
-                className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl bg-gradient-to-br from-primary-900 to-purple-900 glow-effect"
-              >
-                <motion.img
-                  src="/haresh-photo.jpg"
-                  alt="Haresh K N - Machine Learning Engineer"
-                  className="w-full h-full object-cover object-center"
-                  initial={{ scale: 1.2, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 1 }}
-                />
-                
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-600/20 via-transparent to-transparent"></div>
-              </motion.div>
-              
-              {/* Floating Elements */}
-              <motion.div
-                animate={{ 
-                  y: [0, -20, 0],
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 4,
-                  ease: "easeInOut"
-                }}
-                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-primary-500 to-purple-500 rounded-full opacity-80 shadow-lg"
-              />
-              
-              <motion.div
-                animate={{ 
-                  y: [0, 15, 0],
-                  x: [0, 10, 0],
-                  rotate: [0, -360]
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 6, 
-                  delay: 2,
-                  ease: "easeInOut"
-                }}
-                className="absolute -bottom-6 -left-6 w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-60 shadow-lg"
-              />
-              
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.5, 1],
-                  opacity: [0.3, 0.8, 0.3]
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 3,
-                  ease: "easeInOut"
-                }}
-                className="absolute top-1/2 -left-8 w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
-              />
+              <Zap className="w-4 h-4 text-cyan-400" />
             </div>
-          </motion.div>
-        </div>
-
-        {/* Action Buttons - Centered below both columns */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="text-center mt-12"
-        >
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <motion.a
-              href="#projects"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary magnetic pulse-glow"
-            >
-              View Projects
-            </motion.a>
             
-            <motion.button
-              onClick={handleDownloadResume}
-              whileHover={{ 
-                scale: 1.05,
-                borderColor: "#3b82f6"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-secondary flex items-center gap-2 magnetic"
-            >
-              <motion.div
-                animate={{ y: [0, -2, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
+            {/* Main Title with Glitch Effect */}
+            <div className="space-y-4">
+              <h1 
+                className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter glitch neon-text-cyan"
+                data-text="HARESH K N"
               >
-                <Download size={20} />
-              </motion.div>
-              Download Resume
-            </motion.button>
+                HARESH K N
+              </h1>
+              
+              {/* Animated Subtitle */}
+              <div className="flex items-center gap-3 text-xl md:text-2xl font-mono text-purple-400 min-h-[40px]">
+                <span className="text-cyan-400">&gt;</span>
+                <span className="neon-text-purple">{displayText}</span>
+                <span className="w-3 h-6 bg-purple-500 animate-pulse" />
+              </div>
+            </div>
             
-            <motion.a
-              href="#contact"
-              whileHover={{ 
-                scale: 1.05,
-                borderColor: "#3b82f6"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-secondary flex items-center gap-2 magnetic"
-            >
-              <Mail size={20} />
-              Contact Me
-            </motion.a>
+            {/* Description */}
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl font-light">
+              <span className="text-cyan-400 font-mono">Machine Learning Engineer</span> designing next-generation AI systems 
+              with deep learning, computer vision, and autonomous intelligence. 
+              <span className="text-purple-400"> Transforming data into decisions.</span>
+            </p>
+
+            {/* Stats Display */}
+            <div className="grid grid-cols-3 gap-4 max-w-xl">
+              {[
+                { icon: Brain, label: 'AI Models', value: '50+' },
+                { icon: Cpu, label: 'Projects', value: '30+' },
+                { icon: Zap, label: 'Accuracy', value: '95%' }
+              ].map((stat, index) => (
+                <div 
+                  key={index}
+                  className="hologram-card p-4 text-center holo-shimmer"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <stat.icon className="w-8 h-8 mx-auto mb-2 text-cyan-400" />
+                  <div className="text-2xl font-bold neon-text-cyan">{stat.value}</div>
+                  <div className="text-xs text-gray-400 font-mono uppercase">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+              <a
+                href="#projects"
+                className="btn-ai-primary group flex items-center justify-center gap-3"
+              >
+                <span>EXPLORE PROJECTS</span>
+                <ChevronDown className="w-5 h-5 animate-bounce" />
+              </a>
+              
+              <button
+                onClick={handleDownloadResume}
+                className="btn-ai-secondary flex items-center justify-center gap-3"
+              >
+                <Download className="w-5 h-5" />
+                <span>Download Resume</span>
+              </button>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex justify-center lg:justify-start gap-6 pt-8">
+              {[
+                { href: "https://github.com/HARESH1501", icon: Github, label: "GITHUB" },
+                { href: "https://www.linkedin.com/in/haresh-k-n-46a1ab376", icon: Linkedin, label: "LINKEDIN" },
+                { href: "mailto:knharesh1501@gmail.com", icon: Mail, label: "EMAIL" }
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative"
+                >
+                  <div className="hologram-card p-4 magnetic hover:scale-110 transition-all duration-300">
+                    <social.icon className="w-6 h-6 text-cyan-400 group-hover:text-purple-400 transition-colors" />
+                  </div>
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-mono text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {social.label}
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Social Links */}
-          <motion.div 
-            className="flex justify-center space-x-6 mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.5, duration: 0.8 }}
-          >
-            {[
-              { href: "https://github.com/HARESH1501", icon: Github, delay: 0 },
-              { href: "https://www.linkedin.com/in/haresh-k-n-46a1ab376", icon: Linkedin, delay: 0.1 },
-              { href: "mailto:knharesh1501@gmail.com", icon: Mail, delay: 0.2 }
-            ].map((social, index) => (
-              <motion.a
-                key={index}
-                href={social.href}
-                target={social.href.startsWith('mailto') ? '_self' : '_blank'}
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 2.5 + social.delay, duration: 0.5 }}
-                whileHover={{ 
-                  scale: 1.2, 
-                  rotate: [0, -10, 10, 0],
-                  boxShadow: "0 10px 30px rgba(59, 130, 246, 0.4)"
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 bg-gray-800 rounded-full text-gray-300 hover:text-primary-400 transition-all duration-300 magnetic glow-effect"
-              >
-                <social.icon size={24} />
-              </motion.a>
-            ))}
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            animate={{ 
-              y: [0, 15, 0],
-              opacity: [0.5, 1, 0.5]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 2,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              whileHover={{ scale: 1.2 }}
-              className="cursor-pointer"
+          {/* Right Column - 3D Photo with HUD */}
+          <div className="flex justify-center lg:justify-end">
+            <div 
+              ref={imageRef}
+              className="relative group cursor-pointer"
+              onMouseMove={handleImageMouseMove}
+              onMouseLeave={handleImageMouseLeave}
+              style={{ 
+                transition: 'transform 0.1s ease-out',
+                transformStyle: 'preserve-3d'
+              }}
             >
-              <ChevronDown size={32} className="text-gray-400 hover:text-primary-400 transition-colors" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
+              {/* HUD Frame */}
+              <div className="absolute -inset-8 border border-cyan-500/30 pointer-events-none">
+                <div className="hud-corner hud-corner-tl" />
+                <div className="hud-corner hud-corner-tr" />
+                <div className="hud-corner hud-corner-bl" />
+                <div className="hud-corner hud-corner-br" />
+              </div>
+
+              {/* Energy Pulse Border */}
+              <div className="absolute -inset-4 energy-pulse opacity-50" />
+              
+              {/* Photo Container */}
+              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] hexagon overflow-hidden">
+                <div className="absolute inset-0 hologram-card">
+                  <img
+                    src="/haresh-photo.jpg"
+                    alt="Haresh K N - AI Specialist"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  />
+                  
+                  {/* Holographic Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-purple-500/20 mix-blend-overlay" />
+                  
+                  {/* Scan Lines */}
+                  <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,243,255,0.03)_2px,rgba(0,243,255,0.03)_4px)] pointer-events-none" />
+                  
+                  {/* Data Stream */}
+                  <div className="absolute inset-0 data-stream opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+
+              {/* Status Indicators */}
+              <div className="absolute -bottom-8 -left-8 bg-black border border-cyan-500 px-4 py-2 font-mono text-xs flex items-center gap-3">
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 bg-cyan-400 animate-pulse" />
+                  <div className="w-2 h-2 bg-purple-400 animate-pulse" style={{ animationDelay: '0.2s' }} />
+                  <div className="w-2 h-2 bg-pink-400 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                </div>
+                <span className="text-cyan-400">NEURAL_SCAN_ACTIVE</span>
+              </div>
+
+              <div className="absolute -top-8 -right-8 bg-black border border-purple-500 px-4 py-2 font-mono text-xs text-purple-400">
+                ID: ML_ENGINEER_001
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-cyan-400 font-mono text-xs tracking-widest">SCROLL</span>
+          <div className="w-6 h-10 border-2 border-cyan-500 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" />
+          </div>
+        </div>
       </div>
     </section>
   )

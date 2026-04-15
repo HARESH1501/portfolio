@@ -1,10 +1,28 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import Navigation from '@/components/Navigation'
+import { PerspectiveGrid } from '@/components/ui/PerspectiveGrid'
+import { HUDOverlay } from '@/components/ui/HUDOverlay'
+import { CursorGlow } from '@/components/ui/CursorGlow'
+import { CustomCursor } from '@/components/ui/CustomCursor'
+import { LoadingScreen } from '@/components/ui/LoadingScreen'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+})
 
 export const metadata: Metadata = {
   title: 'Haresh K N - Machine Learning Engineer & AI Specialist',
@@ -24,11 +42,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans antialiased text-white">
         <ThemeProvider>
+          <LoadingScreen />
+          <CustomCursor />
+          <PerspectiveGrid />
+          <HUDOverlay />
+          <CursorGlow />
           <Navigation />
-          <main>{children}</main>
+          <main className="relative z-10">{children}</main>
         </ThemeProvider>
       </body>
     </html>

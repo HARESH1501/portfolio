@@ -36,7 +36,22 @@ module.exports = {
           primary: '#0a0a0a',
           secondary: '#111111',
           accent: '#1a1a1a',
+        },
+        neon: {
+          cyan: '#00f3ff',
+          purple: '#bf00ff',
+          pink: '#ff00ff',
+          green: '#00ff41',
         }
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        space: ['var(--font-space)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+      },
+      perspective: {
+        '1000': '1000px',
+        '2000': '2000px',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-out',

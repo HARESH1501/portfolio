@@ -9,11 +9,23 @@ interface CertificateModalProps {
 }
 
 const CertificateModal = ({ certificate, onClose }: CertificateModalProps) => {
-  const handleDownload = () => {
-    const link = document.createElement('a')
-    link.href = certificate.certificateUrl
-    link.download = `${certificate.title.replace(/\s+/g, '_')}_Certificate.jpg`
-    link.click()
+  const handleDownload = async () => {
+    try {
+      // Extract filename from certificate URL
+      const filename = certificate.certificateUrl.split('/').pop()
+      
+      // Use the API route for reliable downloads
+      const link = document.createElement('a')
+      link.href = `/api/download/certificate?file=${filename}`
+      link.download = `${certificate.title.replace(/\s+/g, '_')}_Certificate.jpg`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Download failed:', error)
+      // Fallback: open in new tab
+      window.open(certificate.certificateUrl, '_blank')
+    }
   }
 
   const handleViewFullSize = () => {
